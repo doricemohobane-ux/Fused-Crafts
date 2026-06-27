@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fused Crafts · parametric furniture</title>
+    <!-- Font & base styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #faf7f2;
+            font-family: 'Inter', sans-serif;
+            color: #1e1e1e;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* header */
+        .header {
+            padding: 32px 0 24px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #2b2b2b 0%, #5a4e3c 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo span {
+            font-weight: 300;
+            background: none;
+            -webkit-text-fill-color: #7a6a56;
+            color: #7a6a56;
+        }
+
+        .nav a {
+            margin-left: 32px;
+            text-decoration: none;
+            font-weight: 500;
+            color: #2b2b2b;
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+            transition: color 0.2s;
+        }
+        .nav a:hover {
+            color: #a38972;
+        }
+
+        /* hero */
+        .hero {
+            padding: 60px 0 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-text {
+            flex: 1 1 400px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            max-width: 600px;
+        }
+        .hero-text h1 span {
+            background: linear-gradient(145deg, #b8a48c, #7a6a56);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #3d3d3d;
+            margin-top: 20px;
+            max-width: 480px;
+            font-weight: 350;
+        }
+
+        .hero-badge {
+            margin-top: 28px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: #eae3da;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #2b2b2b;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-visual {
+            flex: 1 1 300px;
+            background: #d9d0c4;
+            border-radius: 40px 40px 40px 0;
+            min-height: 260px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300"><rect width="400" height="300" fill="%23d9d0c4" rx="20"/><path d="M80 200 L180 120 L260 170 L340 100 L360 220 L240 260 L140 240 L80 200" fill="%23b8a48c" opacity="0.5"/><circle cx="200" cy="150" r="40" fill="%23a38972" opacity="0.3"/><path d="M60 140 L120 80 L200 100 L280 60 L340 110 L300 170 L200 190 L100 160 L60 140" stroke="%235a4e3c" stroke-width="2" fill="none" opacity="0.6"/><circle cx="180" cy="100" r="12" fill="%23b8a48c"/><circle cx="260" cy="130" r="16" fill="%23a38972"/></svg>');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+        }
+
+        /* section */
+        section {
+            padding: 60px 0;
+            border-top: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+        .section-sub {
+            font-size: 1rem;
+            color: #5a4e3c;
+            margin-bottom: 40px;
+            max-width: 640px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 28px;
+        }
+
+        .card {
+            background: #ffffffd9;
+            backdrop-filter: blur(2px);
+            padding: 28px 24px;
+            border-radius: 28px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+            transition: 0.25s ease;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.04);
+        }
+        .card h3 {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+        .card p {
+            color: #3d3d3d;
+            font-size: 0.95rem;
+        }
+        .card .emoji-big {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            margin: 16px 0 8px;
+        }
+        .pill {
+            background: #ece6dd;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .testimonial-block {
+            background: #ede8e0;
+            border-radius: 40px;
+            padding: 32px 36px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+            align-items: center;
+        }
+        .testimonial-block blockquote {
+            font-size: 1.2rem;
+            font-weight: 400;
+            flex: 2;
+            min-width: 240px;
+            color: #1e1e1e;
+        }
+        .testimonial-block cite {
+            font-style: normal;
+            font-weight: 500;
+            color: #5a4e3c;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 28px;
+            margin-top: 20px;
+        }
+        .team-card {
+            background: #f4f0ea;
+            border-radius: 28px;
+            padding: 24px 18px;
+            text-align: center;
+        }
+        .team-card .name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .team-card .role {
+            font-size: 0.9rem;
+            color: #5a4e3c;
+            margin-top: 4px;
+        }
+        .team-card .skill {
+            font-size: 0.8rem;
+            background: #e3dad0;
+            padding: 4px 14px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .viability-score {
+            background: #2b2b2b;
+            color: #f0ebe3;
+            padding: 28px 32px;
+            border-radius: 60px;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: -0.02em;
+        }
+        .viability-score small {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .footer {
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding: 32px 0;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: #5a4e3c;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 680px) {
+            .hero-text h1 { font-size: 2.4rem; }
+            .nav a { margin-left: 16px; }
+            .header { flex-direction: column; align-items: start; gap: 12px; }
+            .viability-score { font-size: 1.4rem; padding: 16px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- header -->
+        <header class="header">
+            <div class="logo">Fused<span>Crafts</span></div>
+            <div class="nav">
+                <a href="#">studio</a>
+                <a href="#">process</a>
+                <a href="#">bespoke</a>
+                <a href="#">journal</a>
+            </div>
+        </header>
+
+        <!-- hero -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Furniture that <span>adapts</span> to you</h1>
+                <p>Parametric design & digital fabrication — crafted in Lesotho for spaces that feel like yours.</p>
+                <div class="hero-badge">
+                    <span class="badge">✦ parametric</span>
+                    <span class="badge">✦ CNC + handcraft</span>
+                    <span class="badge">✦ custom fit</span>
+                </div>
+            </div>
+            <div class="hero-visual"></div>
+        </div>
+
+        <!-- problem + JTBD -->
+        <section>
+            <h2 class="section-title">Built around how you live</h2>
+            <p class="section-sub">Mass-produced furniture rarely fits. We combine engineering, craft, and digital tools to create pieces that match your space, style, and life.</p>
+            <div class="grid-2">
+                <div class="card">
+                    <span class="emoji-big">📐</span>
+                    <h3>Functional</h3>
+                    <p>Furniture that fits exact dimensions, optimises rooms, and lasts. No wasted space, no compromise.</p>
+                </div>
+                <div class="card">
+                    <span class="emoji-big">✨</span>
+                    <h3>Emotional</h3>
+                    <p>Pride in a space that reflects you. Confidence, comfort, and satisfaction from quality that endures.</p>
+                </div>
+                <div class="card">
+                    <span class="emoji-big">🤝</span>
+                    <h3>Social</h3>
+                    <p>Impress guests and clients. A modern, organised image that speaks to taste and attention to detail.</p>
+                </div>
+                <div class="card">
+                    <span class="emoji-big">🌱</span>
+                    <h3>Macro</h3>
+                    <p>Boosts local manufacturing, creates skilled jobs, reduces waste — sustainable production in Lesotho.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- current alternatives & gaps -->
+        <section>
+            <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+                <div style="flex:1; min-width: 240px;">
+                    <h3 style="font-weight: 600;">Current alternatives</h3>
+                    <ul style="list-style: none; margin-top: 12px; color: #3d3d3d;">
+                        <li style="padding: 6px 0;">🛋️ Mass-produced from retailers</li>
+                        <li style="padding: 6px 0;">📦 Imported furniture</li>
+                        <li style="padding: 6px 0;">🔨 Local carpenters / welders</li>
+                        <li style="padding: 6px 0;">🪚 Modify existing furniture</li>
+                    </ul>
+                </div>
+                <div style="flex:1; min-width: 240px;">
+                    <h3 style="font-weight: 600;">Gaps we fill</h3>
+                    <ul style="list-style: none; margin-top: 12px; color: #3d3d3d;">
+                        <li style="padding: 6px 0;">✖️ Mass-produced doesn’t fit your space</li>
+                        <li style="padding: 6px 0;">✖️ Imported is expensive & fragile</li>
+                        <li style="padding: 6px 0;">✖️ Custom often inconsistent & slow</li>
+                        <li style="padding: 6px 0;">✖️ Limited personalisation elsewhere</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 32px; background: #eae3da; border-radius: 40px; padding: 20px 28px;">
+                <p style="font-weight: 500;">🗂️ <strong>Problem validation</strong> — 10 customers interviewed (6 in-person, 4 virtual). <span style="background: #b8a48c; padding: 2px 14px; border-radius: 30px; margin-left: 12px;">90% agree problem is important</span> <span style="background: #b8a48c; padding: 2px 14px; border-radius: 30px; margin-left: 8px;">85% dissatisfied with current alternatives</span></p>
+            </div>
+        </section>
+
+        <!-- solution & prototype -->
+        <section>
+            <h2 class="section-title">Process & prototype</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>⚙️ Core technologies</h3>
+                    <div class="pill-list">
+                        <span class="pill">Parametric design</span>
+                        <span class="pill">CAD modeling</span>
+                        <span class="pill">CNC machining</span>
+                        <span class="pill">Wood & metal fab</span>
+                        <span class="pill">3D visualization</span>
+                    </div>
+                    <p style="margin-top: 12px;">Physical products + services. We prototype with CNC and handcraft, showing you the final look before we build.</p>
+                </div>
+                <div class="card">
+                    <h3>🧪 Prototype feedback</h3>
+                    <p><strong>❤️ Loved:</strong> space optimisation, personalised design, visual confidence.</p>
+                    <p style="margin-top: 8px;"><strong>🤔 Neutral / disliked:</strong> cost uncertainty, technical CAD visuals, fear of delays.</p>
+                    <div style="display: flex; gap: 16px; margin-top: 16px;">
+                        <span>👍 8 liked/loved</span>
+                        <span>👎 2 neutral/unhappy</span>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 24px; background: #d9d0c4; border-radius: 40px; padding: 20px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+                <span><strong>Unique advantage:</strong> Custom parametric design · CNC + handcrafted hybrid · Multi-material tension</span>
+                <span style="background: #2b2b2b; color: white; padding: 6px 20px; border-radius: 40px;">Viability Index 91.1%</span>
+            </div>
+        </section>
+
+        <!-- market & revenue -->
+        <section>
+            <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+                <div style="flex:1;">
+                    <h3>📊 Market</h3>
+                    <p><strong>TAM</strong> $700B–$800B (global) <br> <strong>SAM</strong> $2B–$5B (mid-market) <br> <strong>SOM</strong> 720k (Lesotho + Southern Africa)</p>
+                    <p style="margin-top: 12px;">Focus: urban homeowners, SMEs, offices, institutions.</p>
+                </div>
+                <div style="flex:1;">
+                    <h3>💰 Revenue models</h3>
+                    <p><strong>Primary:</strong> E‑commerce model <br> <strong>Secondary:</strong> Commission model</p>
+                    <p style="margin-top: 12px;"><strong>GTM</strong> · Facebook, Instagram, WhatsApp · trade fairs · partnerships</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- team -->
+        <section>
+            <h2 class="section-title">Craftsmanship & team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="name">'Mamotsoko Mohobane</div>
+                    <div class="role">Founder & Designer</div>
+                    <span class="skill">CNC Machine Operation</span>
+                    <div style="margin-top: 12px; font-size:0.9rem;">Lerotholi Polytechnic · Fitting & Machining</div>
+                </div>
+                <div class="team-card">
+                    <div class="name">Maisa Fepha</div>
+                    <div class="role">Product Development</div>
+                    <span class="skill">Wood & Metal Fabrication</span>
+                    <div style="margin-top: 12px; font-size:0.9rem;">FOKOTHI · Fitting & Machining</div>
+                </div>
+                <div class="team-card">
+                    <div class="name">Masabata Pelea</div>
+                    <div class="role">Business Strategy</div>
+                    <span class="skill">Project Management</span>
+                    <div style="margin-top: 12px; font-size:0.9rem;">FOKOTHI · Business Management</div>
+                </div>
+            </div>
+            <div style="margin-top: 24px; background: #ede8e0; border-radius: 40px; padding: 18px 28px;">
+                <p><strong>Mentors:</strong> Lecturer from polytechnic, Unipod innovation instructors. <br> <strong>Mentors needed:</strong> Marketing, fundraising, business strategy, scaling production.</p>
+            </div>
+        </section>
+
+        <!-- next steps & viability -->
+        <section>
+            <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                <div style="flex:2;">
+                    <h3 style="font-weight: 600;">Next steps</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+                        <div><strong>Months 1–3</strong> · Build prototype · ZAR 50k</div>
+                        <div><strong>Months 4–6</strong> · Launch brand · ZAR 80k</div>
+                        <div><strong>Months 7–9</strong> · Expand B2B · ZAR 120k</div>
+                        <div><strong>Months 10–12</strong> · Scale production · ZAR 120k</div>
+                    </div>
+                </div>
+                <div style="flex:1; text-align: right;">
+                    <div class="viability-score">91.1<small>%</small> <span style="display: block; font-size: 0.8rem; font-weight: 400;">venture viability</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- footer -->
+        <footer class="footer">
+            <span>© Fused Crafts · Sebopi UniPod, Maseru, Lesotho</span>
+            <span>parametric · local · built for life</span>
+        </footer>
+    </div>
+</body>
+</html>
